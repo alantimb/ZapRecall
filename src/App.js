@@ -1,13 +1,14 @@
 import "./assets/css/style.css";
-import GlobalStyle from "./assets/globalStyle";
+import GlobalStyle from "./globalStyle";
+import MainPage from "./components/MainPage";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <div className="screen-container">
-        
-      </div>
+      <MainPage />
+      <Footer />
     </>
   );
 }
