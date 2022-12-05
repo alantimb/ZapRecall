@@ -1,4 +1,5 @@
 import logo from "../assets/img/logo.png";
+import Footer from "./Footer";
 
 function MainPage() {
   return (
@@ -9,6 +10,7 @@ function MainPage() {
           <h1>ZapRecall</h1>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
