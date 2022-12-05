@@ -1,15 +1,21 @@
-import logo from "../assets/img/logo.png";
 import Footer from "./Footer";
+import Header from "./Header";
+import Flashcard from "./Flashcard";
+import { useState } from "react";
 
-function MainPage() {
+function MainPage({ cards }) {
   return (
     <>
-      <div className="screen-container">
-        <div className="logo-container">
-          <img src={logo} />
-          <h1>ZapRecall</h1>
-        </div>
-      </div>
+      <Header />
+
+      {cards.map((card, i) => (
+        <Flashcard
+          number={i}
+          cardQuestion={card.question}
+          cardAnswer={card.cardAnswer}
+        />
+      ))}
+
       <Footer />
     </>
   );

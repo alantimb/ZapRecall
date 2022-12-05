@@ -1,32 +1,20 @@
 import logo from "../assets/img/logo.png";
 import styled, { StyledComponent } from "styled-components";
 
-function HomePage({changePage}) {
+function HomePage({ changePage }) {
   return (
-    <>
-      <ScreenContainer>
-        <img src={logo} />
-        <h1>ZapRecall</h1>
-        <button onClick={changePage}>Iniciar Recall!</button>
-      </ScreenContainer>
-    </>
+    <HomeContainer>
+      <img src={logo} />
+      <h1>ZapRecall</h1>
+      <button onClick={changePage}>Iniciar Recall!</button>
+    </HomeContainer>
   );
 }
 
 export default HomePage;
 
-const ScreenContainer = styled.div`
-  background-color: #fb6b6b;
-  width: 100vw;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0px;
-  padding: 0px;
-  padding-bottom: 200px;
-  padding-top: 140px;
-
+const HomeContainer = styled.div`
+  padding-top: 150px;
   display: flex;
   flex-direction: column;
   justify-items: space-between;
