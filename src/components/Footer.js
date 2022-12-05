@@ -1,8 +1,8 @@
-function Footer(props) {
+function Footer({ cards }) {
   return (
     <>
       <div className="footer-concluidos">
-        <h1>0/4 CONCLUÍDOS</h1>
+        <h1>0/{cards.length} CONCLUÍDOS</h1>
       </div>
     </>
   );

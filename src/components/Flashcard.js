@@ -1,17 +1,62 @@
 import seta_play from "../assets/img/seta_play.png";
 import seta_virar from "../assets/img/seta_virar.png";
+import iconCerto from "../assets/img/icone_certo.png";
+import iconErro from "../assets/img/icone_erro.png";
+import iconQuase from "../assets/img/icone_quase.png";
+
 import styled, { StyledComponent } from "styled-components";
 import { useState } from "react";
+import colors from "../assets/css/colors";
 
-function Flashcard({ number, cardQuestion, cardAnswer }) {
+function Flashcard({ number, cardQuestion, cardAnswer, key }) {
   const [arrowClicked, setArrowClicked] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
+  const { green, yellow, red, gray } = colors;
+  const [textColor, setTextColor] = useState(gray);
 
   const buttons = [
-    <button onClick={() => setArrowClicked(null)}>Não lembrei!</button>,
-    <button onClick={() => setArrowClicked(null)}>Quase não lembrei</button>,
-    <button onClick={() => setArrowClicked(null)}>Zap!</button>,
+    <button
+      id={"error"}
+      onClick={() =>
+        setTextColor(red) ? setArrowClicked(false) : setArrowClicked(false)
+      }
+    >
+      Não lembrei!
+    </button>,
+    <button
+      id={"almost"}
+      onClick={() =>
+        setTextColor(yellow) ? setArrowClicked(false) : setArrowClicked(false)
+      }
+    >
+      Quase não lembrei
+    </button>,
+    <button
+      id={"right"}
+      onClick={() =>
+        setTextColor(green) ? setArrowClicked(false) : setArrowClicked(false)
+      }
+    >
+      Zap!
+    </button>,
   ];
+
+  function cardIcon(textColor) {
+    switch (textColor) {
+      case "#FF3030":
+        return <img src={iconErro} />;
+        break;
+      case "#FF922E":
+        return <img src={iconQuase} />;
+        break;
+      case "#2FBE34":
+        return <img src={iconCerto} />;
+        break;
+      default:
+        return <img src={seta_play} onClick={() => setArrowClicked(true)} />;
+        break;
+    }
+  }
 
   return (
     <>
@@ -19,15 +64,19 @@ function Flashcard({ number, cardQuestion, cardAnswer }) {
         <OpenedCard>
           <p>{showAnswer ? cardAnswer : cardQuestion}</p>
           {showAnswer ? (
-            <ButtonsQuestion>{buttons.map((b) => b)}</ButtonsQuestion>
+            <ButtonsQuestion>{buttons.map((b, i) => b)}</ButtonsQuestion>
           ) : (
             <img src={seta_virar} onClick={() => setShowAnswer(true)} />
           )}
         </OpenedCard>
       ) : (
-        <ClosedCard>
+        <ClosedCard color={textColor}>
           <p>Pergunta {number + 1}</p>
-          <img src={seta_play} onClick={() => setArrowClicked(true)} />
+          {textColor === "#333333" ? (
+            <img src={seta_play} onClick={() => setArrowClicked(true)} />
+          ) : (
+            cardIcon(textColor)
+          )}
         </ClosedCard>
       )}
     </>
@@ -54,7 +103,9 @@ const ClosedCard = styled.div`
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
-    color: #333333;
+    color: ${(props) => props.color};
+    text-decoration: ${(props) =>
+      props.color == "#333333" ? "none" : "line-through"};
   }
 `;
 
@@ -100,9 +151,17 @@ const ButtonsQuestion = styled.div`
     justify-content: center;
     text-align: center;
     color: #ffffff;
-    background: blue;
     border-radius: 5px;
-    border: 1px solid blue;
     padding: 5px;
+    border: 0px;
+    &:nth-child(1) {
+      background-color: #ff3030;
+    }
+    &:nth-child(2) {
+      background-color: #ff922e;
+    }
+    &:nth-child(3) {
+      background-color: #2fbe34;
+    }
   }
 `;
