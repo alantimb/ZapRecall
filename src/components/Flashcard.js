@@ -3,54 +3,61 @@ import seta_virar from "../assets/img/seta_virar.png";
 import iconCerto from "../assets/img/icone_certo.png";
 import iconErro from "../assets/img/icone_erro.png";
 import iconQuase from "../assets/img/icone_quase.png";
-
+import Footer from "./Footer";
 import styled, { StyledComponent } from "styled-components";
 import { useState } from "react";
 import colors from "../assets/css/colors";
 
-function Flashcard({ number, cardQuestion, cardAnswer, key }) {
+function Flashcard({ number, cardQuestion, cardAnswer, key, cards }) {
   const [arrowClicked, setArrowClicked] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
   const { green, yellow, red, gray } = colors;
   const [textColor, setTextColor] = useState(gray);
+  const [count, setCount] = useState([]);
 
   const buttons = [
     <button
-      id={"error"}
-      onClick={() =>
-        setTextColor(red) ? setArrowClicked(false) : setArrowClicked(false)
-      }
+      data-test="no-btn"
+      onClick={() => (setTextColor(red) ? counter("error") : counter("error"))}
     >
       Não lembrei!
     </button>,
     <button
-      id={"almost"}
+      data-test="partial-btn"
       onClick={() =>
-        setTextColor(yellow) ? setArrowClicked(false) : setArrowClicked(false)
+        setTextColor(yellow) ? counter("almost") : counter("almost")
       }
     >
       Quase não lembrei
     </button>,
     <button
-      id={"right"}
+      data-test="zap-btn"
       onClick={() =>
-        setTextColor(green) ? setArrowClicked(false) : setArrowClicked(false)
+        setTextColor(green) ? counter("rigth") : counter("rigth")
       }
     >
       Zap!
     </button>,
   ];
 
+  function counter(item) {
+    if (true) {
+      let newCount = [...count, item];
+      setCount(newCount);
+      setArrowClicked(false);
+    }
+  }
+
   function cardIcon(textColor) {
     switch (textColor) {
       case "#FF3030":
-        return <img src={iconErro} />;
+        return <img src={iconErro} data-test="no-icon" />;
         break;
       case "#FF922E":
-        return <img src={iconQuase} />;
+        return <img src={iconQuase} data-test="zap-icon" />;
         break;
       case "#2FBE34":
-        return <img src={iconCerto} />;
+        return <img src={iconCerto} data-test="partial-icon" />;
         break;
       default:
         return <img src={seta_play} onClick={() => setArrowClicked(true)} />;
@@ -62,23 +69,35 @@ function Flashcard({ number, cardQuestion, cardAnswer, key }) {
     <>
       {arrowClicked ? (
         <OpenedCard>
-          <p>{showAnswer ? cardAnswer : cardQuestion}</p>
+          <p data-test="flashcard-text">
+            {showAnswer ? cardAnswer : cardQuestion}
+          </p>
           {showAnswer ? (
             <ButtonsQuestion>{buttons.map((b, i) => b)}</ButtonsQuestion>
           ) : (
-            <img src={seta_virar} onClick={() => setShowAnswer(true)} />
+            <img
+              src={seta_virar}
+              data-test="turn-btn"
+              onClick={() => setShowAnswer(true)}
+            />
           )}
         </OpenedCard>
       ) : (
-        <ClosedCard color={textColor}>
-          <p>Pergunta {number + 1}</p>
+        <ClosedCard data-test="flashcard" color={textColor}>
+          <p data-test="flashcard-text">Pergunta {number + 1}</p>
           {textColor === "#333333" ? (
-            <img src={seta_play} onClick={() => setArrowClicked(true)} />
+            <img
+              src={seta_play}
+              data-test="play-btn"
+              onClick={() => setArrowClicked(true)}
+            />
           ) : (
             cardIcon(textColor)
           )}
         </ClosedCard>
       )}
+
+      <Footer cards={cards} count={count.length} />
     </>
   );
 }

@@ -1,12 +1,7 @@
-import Footer from "./Footer";
 import Header from "./Header";
 import Flashcard from "./Flashcard";
-import { useState } from "react";
-import colors from "../assets/css/colors";
 
 function MainPage({ cards }) {
-  
-
   return (
     <>
       <Header />
@@ -17,12 +12,9 @@ function MainPage({ cards }) {
           number={i}
           cardQuestion={card.question}
           cardAnswer={card.answer}
-          // arrowClicked={arrowClicked}
-          // setArrowClicked={setArrowClicked}
+          cards={cards}
         />
       ))}
-
-      <Footer cards={cards}/>
     </>
   );
 }

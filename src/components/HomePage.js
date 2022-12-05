@@ -6,7 +6,9 @@ function HomePage({ changePage }) {
     <HomeContainer>
       <img src={logo} />
       <h1>ZapRecall</h1>
-      <button onClick={changePage}>Iniciar Recall!</button>
+      <button data-test="start-btn" onClick={changePage}>
+        Iniciar Recall!
+      </button>
     </HomeContainer>
   );
 }
