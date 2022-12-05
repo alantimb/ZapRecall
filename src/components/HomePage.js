@@ -26,7 +26,7 @@ const HomeContainer = styled.div`
   }
 
   h1 {
-    font-family: "Righteous";
+    font-family: "Righteous", cursive;
     font-style: normal;
     font-weight: 400;
     font-size: 36px;
@@ -43,7 +43,7 @@ const HomeContainer = styled.div`
     border-radius: 5px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
     color: #d70900;
-    font-family: "Recursive";
+    font-family: "Recursive", cursive;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
