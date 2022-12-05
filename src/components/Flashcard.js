@@ -4,21 +4,25 @@ import styled, { StyledComponent } from "styled-components";
 import { useState } from "react";
 
 function Flashcard({ number, cardQuestion, cardAnswer }) {
-  // function isItTurned(arrowClicked) {
-  //   if (arrowClicked === true) {
-  //   }, show, setShow
-  // }
-  console.log(cardAnswer);
   const [arrowClicked, setArrowClicked] = useState(false);
-  const [show, setShow] = useState(null);
-  console.log(cardQuestion);
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  const buttons = [
+    <button onClick={() => setArrowClicked(null)}>Não lembrei!</button>,
+    <button onClick={() => setArrowClicked(null)}>Quase não lembrei</button>,
+    <button onClick={() => setArrowClicked(null)}>Zap!</button>,
+  ];
 
   return (
     <>
       {arrowClicked ? (
         <OpenedCard>
-          <p>{!show ? cardQuestion : cardAnswer}</p>
-          <img src={seta_virar} onClick={() => setShow(true)} />
+          <p>{showAnswer ? cardAnswer : cardQuestion}</p>
+          {showAnswer ? (
+            <ButtonsQuestion>{buttons.map((b) => b)}</ButtonsQuestion>
+          ) : (
+            <img src={seta_virar} onClick={() => setShowAnswer(true)} />
+          )}
         </OpenedCard>
       ) : (
         <ClosedCard>
@@ -77,5 +81,28 @@ const OpenedCard = styled.div`
     position: absolute;
     bottom: 10px;
     right: 10px;
+  }
+`;
+
+const ButtonsQuestion = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    width: 90px;
+    font-family: "Recursive", cursive;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #ffffff;
+    background: blue;
+    border-radius: 5px;
+    border: 1px solid blue;
+    padding: 5px;
   }
 `;

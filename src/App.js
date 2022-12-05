@@ -46,15 +46,15 @@ const cards = [
 ];
 
 function App() {
-  const [mainPage, setMainPage] = useState(false);
+  const [showMainPage, setShowMainPage] = useState(false);
 
   return (
     <ScreenContainer>
       <GlobalStyle />
-      {mainPage ? (
+      {showMainPage ? (
         <MainPage cards={cards} />
       ) : (
-        <HomePage changePage={() => setMainPage(true)} />
+        <HomePage changePage={() => setShowMainPage(true)} />
       )}
     </ScreenContainer>
   );
